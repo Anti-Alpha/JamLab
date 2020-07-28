@@ -8,6 +8,7 @@ void main() => runApp(MaterialApp(
 
 class HomePage extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -15,19 +16,26 @@ class HomePage extends StatelessWidget {
           child: Container(
         child: Column(
           children: <Widget>[
+            FadeAnimation(0.5,
             Container(
-              height: 300,
+              height: 400,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/jam.png'),
+                  fit: BoxFit.fill,
+                )
+              ),
               child: Stack(
                 children: <Widget>[
                   Positioned(
                     child: FadeAnimation(
-                        1.6,
+                        0.5,
                         Container(
                           margin: EdgeInsets.only(top: 50),
                           child: Center(
                             child: Text("Login",
                                 style: TextStyle(
-                                    color: Colors.red,
+                                    color: Colors.white,
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold)),
                           ),
@@ -36,12 +44,13 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            ),
             Padding(
                 padding: EdgeInsets.all(30.0),
                 child: Column(
                   children: <Widget>[
                     FadeAnimation(
-                        1.8,
+                        0.6,
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
@@ -85,7 +94,7 @@ class HomePage extends StatelessWidget {
                   ],
                 )),
             FadeAnimation(
-                2,
+                0.7,
                 Container(
                   height: 40,
                   width: 315,
@@ -93,9 +102,9 @@ class HomePage extends StatelessWidget {
                     onPressed: () {},
                     shape: new RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
-                    splashColor: Colors.redAccent,
+                    splashColor: Colors.red[500],
                     textColor: Colors.grey[300],
-                    color: Colors.redAccent,
+                    color: Colors.red[500],
                     child: Text(
                       "Login",
                       style: TextStyle(fontSize: 15.0),
@@ -106,11 +115,11 @@ class HomePage extends StatelessWidget {
               height: 70.0,
             ),
             FadeAnimation(
-                2,
+                0.8,
                 Container(
                   child: FlatButton(
                     onPressed: () {},
-                    textColor: Colors.redAccent,
+                    textColor: Colors.red[500],
                     child: Text("Forgot Password?"),
                   ),
                 ))
