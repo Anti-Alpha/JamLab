@@ -21,6 +21,10 @@ dependencies:
   flutter_screenutil: ^2.3.0
   flutter_auth_buttons: ^0.9.0
   google_sign_in: ^4.5.1
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.7
+
+
   http: ^0.12.2
   flutter:
     sdk: flutter
