@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:group/Animation/FadeAnimation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../Presentation/my_flutter_app_icons.dart';
 import 'dart:async';
 import 'dart:convert' show json;
 
@@ -86,6 +86,7 @@ import 'package:google_sign_in/google_sign_in.dart';
                 ),
               ),
             ),
+
             Padding(
                 padding: EdgeInsets.all(30.0),
                 child: Column(
@@ -144,7 +145,7 @@ import 'package:google_sign_in/google_sign_in.dart';
                   width: 0.7664.wp,
                   child: OutlineButton(
                     onPressed: () {
-                      signInWithEmailPassword();
+                      signUpWithEmailPassword();
                     },
                     shape: new RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
@@ -163,32 +164,61 @@ import 'package:google_sign_in/google_sign_in.dart';
               child: Text("Don't have an Account? Sign Up!",
               style: TextStyle(fontSize: 15.0),),
             ),
-            SizedBox(height: 0.1.hp),
-//            Container(
-//              child: _isLoggedIn?
-//                  Column(
-//                    children: <Widget>[
-//                      Image.network(
-//                        _googleSignIn.currentUser.photoUrl,
-//                        height: 50.0,
-//                        width: 50.0,
-//                      ),
-//                      Text(_googleSignIn.currentUser.displayName),
-//                      OutlineButton(
-//                        child: Text("Logout"),
-//                        onPressed: () {
-//                          _logout();
-//                        },
-//                      )
-//                    ],
-//                  )
-//              :GoogleSignInButton(
-//                onPressed: () {
-//                  _login();
-//                },
-//              )
-//
-//            ),
+            Container (
+              width: 0.7664.wp,
+              child: Row(
+              children: <Widget>[
+                Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {_login();},
+                  elevation: 2.0,
+                  fillColor: Colors.red,
+                  child: Icon(MyFlutterApp.google, color: Colors.white),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),),
+                Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {},
+                  elevation: 2.0,
+                  fillColor: Colors.blue[700],
+                  child: Icon(MyFlutterApp.facebook, color: Colors.white),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),),
+                Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {},
+                  elevation: 2.0,
+                  fillColor: Colors.blue[300],
+                  child: Icon(MyFlutterApp.twitter, color: Colors.white,),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),),
+              ],
+            ),
+            ),
+            Container(
+              child: _isLoggedIn?
+                  Column(
+                    children: <Widget>[
+                      Image.network(
+                        _googleSignIn.currentUser.photoUrl,
+                        height: 50.0,
+                        width: 50.0,
+                      ),
+                      Text(_googleSignIn.currentUser.displayName),
+                      OutlineButton(
+                        child: Text("Logout"),
+                        onPressed: () {
+                          _logout();
+                        },
+                      )
+                    ],
+                  )
+              :null
+
+            ),
             SizedBox(
               height: 0.08.hp,
             ),
@@ -202,7 +232,7 @@ import 'package:google_sign_in/google_sign_in.dart';
                     child: Text("Forgot Password?"),
                   ),
                 ))
-          ],
+        ],
         ),
       )),
     );

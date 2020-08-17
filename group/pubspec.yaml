@@ -23,6 +23,8 @@ dependencies:
   google_sign_in: ^4.5.1
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7
+  flutter_facebook_login: ^3.0.0
+
 
 
   http: ^0.12.2
@@ -40,10 +42,19 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
+#/// flutter:
+#///   fonts:
+#///    - family:  MyFlutterApp
+#///      fonts:
+#///       - asset: fonts/MyFlutterApp.ttf
+#  ///
+#  ///
 # The following section is specific to Flutter.
 flutter:
-
+  fonts:
+    - family: MyFlutterApp
+      fonts:
+        - asset: fonts/MyFlutterApp.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
