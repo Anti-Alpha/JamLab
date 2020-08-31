@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:group/Animation/FadeAnimation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Presentation/my_flutter_app_icons.dart';
 import 'dart:async';
 import 'dart:convert' show json;
+import 'SignUpScreen.dart';
 
 import "package:http/http.dart" as http;
 
@@ -57,8 +57,6 @@ import 'package:google_sign_in/google_sign_in.dart';
           child: Container(
         child: Column(
           children: <Widget>[
-            FadeAnimation(
-              0.5,
               Container(
                 height: 0.4.hp,
                 decoration: BoxDecoration(
@@ -69,9 +67,7 @@ import 'package:google_sign_in/google_sign_in.dart';
                 child: Stack(
                   children: <Widget>[
                     Positioned(
-                      child: FadeAnimation(
-                          0.5,
-                          Container(
+                      child: Container(
                             margin: EdgeInsets.only(top: 0.075.hp),
                             child: Center(
                               child: Text("Login",
@@ -80,19 +76,17 @@ import 'package:google_sign_in/google_sign_in.dart';
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold)),
                             ),
-                          )),
+                          ),
                     ),
                   ],
                 ),
               ),
-            ),
 
             Padding(
+
                 padding: EdgeInsets.all(30.0),
                 child: Column(
                   children: <Widget>[
-                    FadeAnimation(
-                        0.6,
                         Container(
                           height: 0.1629.hp,
                           padding: EdgeInsets.all(5),
@@ -135,11 +129,9 @@ import 'package:google_sign_in/google_sign_in.dart';
                               ),
                             ],
                           ),
-                        )),
+                        ),
                   ],
                 )),
-            FadeAnimation(
-                0.7,
                 Container(
                   height: 0.047.hp,
                   width: 0.7664.wp,
@@ -157,13 +149,18 @@ import 'package:google_sign_in/google_sign_in.dart';
                       style: TextStyle(fontSize: 15.0),
                     ),
                   ),
-                )),
+                ),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                );},
               textColor: Colors.red[500],
-              child: Text("Don't have an Account? Sign Up!",
+              child: Text("Don't have an Account? Sign up!",
               style: TextStyle(fontSize: 15.0),),
             ),
+            OrDivider(),
             Container (
               width: 0.7664.wp,
               child: Row(
@@ -199,6 +196,7 @@ import 'package:google_sign_in/google_sign_in.dart';
             ),
             ),
             Container(
+
               child: _isLoggedIn?
                   Column(
                     children: <Widget>[
@@ -219,19 +217,19 @@ import 'package:google_sign_in/google_sign_in.dart';
               :null
 
             ),
+
             SizedBox(
               height: 0.08.hp,
             ),
-            FadeAnimation(
-                0.8,
                 Container(
                   //0,1377.hp?
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                    },
                     textColor: Colors.red[500],
-                    child: Text("Forgot Password?"),
+                    child: Text("Forgot password?"),
                   ),
-                ))
+                )
         ],
         ),
       )),
@@ -246,3 +244,37 @@ import 'package:google_sign_in/google_sign_in.dart';
       user = (await mAuth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text)) as FirebaseUser;
     }
 }
+class OrDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
+      width: size.width * 0.8,
+      child: Row(
+        children: <Widget>[
+          buildDivider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "OR",
+              style: TextStyle(
+                color: Colors.red[500],
+                fontWeight: FontWeight.w600,
+              ),
+            ),),
+          buildDivider(),
+        ],
+      ),
+    );
+  }
+}
+Expanded buildDivider() {
+  return Expanded(
+    child: Divider(
+      color:  Colors.black,
+      height: 1.5,
+    ),
+  );
+}
+
