@@ -41,6 +41,8 @@ class SideMenuState extends State<SideMenu>
   final double _menuScreenFactor = 0.65;
   ScrollController controller;
   bool isMenuOpen = false;
+  bool isMenuBlocked = false;
+  bool isOverScroll = false;
 
   @override
   initState() {
@@ -65,15 +67,40 @@ class SideMenuState extends State<SideMenu>
     super.dispose();
   }
 
-  openWithVelocity(DragEndDetails details) {
-    double time = ((controller.position.maxScrollExtent - controller.offset) /
-        details.velocity.pixelsPerSecond.dx.abs());
+  block() {
+    if (!isMenuBlocked) {
+      setState(() {
+        isMenuBlocked = true;
+        //print('isMenuBlocked true');
+      });
+    }
+  }
 
-    print(time * 2000);
-    Duration duration = Duration(milliseconds: (time * 1000).round());
+  unblock() {
+    if (isMenuBlocked) {
+      setState(() {
+        isMenuBlocked = false;
+        //print('isMenuBlocked false');
+      });
+    }
+  }
 
-    controller.animateTo(controller.position.maxScrollExtent,
-        duration: duration, curve: Curves.ease);
+  overscrollStart() {
+    if (!isOverScroll) {
+      setState(() {
+        isOverScroll = true;
+        //print('isOverScroll true');
+      });
+    }
+  }
+
+  overScrollEnd() {
+    if (isOverScroll) {
+      setState(() {
+        isOverScroll = false;
+        //print('isOverScroll false');
+      });
+    }
   }
 
   open() {
@@ -91,6 +118,9 @@ class SideMenuState extends State<SideMenu>
     HitTestBehavior _pageGestureBehaviour =
         isMenuOpen ? HitTestBehavior.opaque : HitTestBehavior.deferToChild;
 
+    ScrollPhysics _physics =
+        isMenuBlocked ? NeverScrollableScrollPhysics() : PageScrollPhysics();
+
     double width = MediaQuery.of(context).size.width;
 
     return ScrollConfiguration(
@@ -98,7 +128,7 @@ class SideMenuState extends State<SideMenu>
       child: ListView(
         controller: controller,
         scrollDirection: Axis.horizontal,
-        physics: PageScrollPhysics(),
+        physics: _physics,
         children: [
           Container(
             width: width,

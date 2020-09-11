@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:group/Screens/SideMenu.dart';
 
@@ -30,53 +31,86 @@ class SideMenuConnector extends StatelessWidget {
       onNotification: (notification) {
         if (notification is ScrollStartNotification) {
           dragStartDetails = notification.dragDetails;
+
+          if (sideMenuController.offset == 0) {
+            /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+              sideMenuState.block();
+            });*/
+            sideMenuState.block();
+            //print('blocking on start');
+          }
         }
 
         if (notification is OverscrollNotification) {
           if (notification.dragDetails == null) {
-            return true;
+            return false;
           }
 
-          //print(notification.dragDetails.delta);
+          if (notification.dragDetails.delta.dx < 0 &&
+              sideMenuController.offset == 0) {
+            if (drag == null) {
+              /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                sideMenuState.overscrollStart();
+              });*/
 
-          if (notification.dragDetails.delta.dx != 0) {
-            drag = sideMenuController.position.drag(dragStartDetails, () {});
+              sideMenuState.overscrollStart();
+
+              //print('starting overscroll');
+              drag = sideMenuController.position.drag(dragStartDetails, () {});
+            }
+          }
+          if (drag != null) {
+            //print('Calling overscroll update');
             drag.update(notification.dragDetails);
           }
         }
 
         if (notification is ScrollUpdateNotification) {
           if (notification.dragDetails == null) {
-            return true;
+            return false;
+          }
+
+          if (sideMenuController.offset == 0) {
+            /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+              print('blocking in update');
+              sideMenuState.block();
+            });*/
+            sideMenuState.block();
           }
 
           if (sideMenuController.offset > 0) {
+            //print('updating drag in update');
             drag.update(notification.dragDetails);
           }
         }
 
         if (notification is ScrollEndNotification) {
+          /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            print('Scroll ended, unblocking and overscroll end');
+
+            sideMenuState.unblock();
+
+            sideMenuState.overScrollEnd();
+          });*/
+
+          sideMenuState.unblock();
+
+          sideMenuState.overScrollEnd();
+
           if (notification.dragDetails == null) {
-            return true;
+            drag = null;
+            return false;
           }
 
           if (drag != null) {
+            //print('Ending drag');
             drag.end(notification.dragDetails);
           }
 
           drag = null;
-
-          /*if (notification.dragDetails.velocity.pixelsPerSecond.dx <= -365 &&
-              sideMenuController.offset > 0) {
-            //SideMenu.of(context).openWithVelocity(notification.dragDetails);
-            //SideMenu.of(context).open();
-            drag.end(notification.dragDetails);
-          } else {
-            drag?.cancel();
-          }*/
         }
 
-        return true;
+        return false;
       },
       child: ScrollConfiguration(
         behavior: SimpleScrollBehavior(),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:group/Screens/SideMenu.dart';
 
 class ConnectableScrollPhysics extends ScrollPhysics {
   const ConnectableScrollPhysics(this.rightSideConnection,
       {ScrollPhysics parent})
       : super(parent: parent);
 
-  final ScrollController rightSideConnection;
+  final SideMenuState rightSideConnection;
 
   @override
   ConnectableScrollPhysics applyTo(ScrollPhysics ancestor) {
@@ -38,7 +39,12 @@ class ConnectableScrollPhysics extends ScrollPhysics {
       return value - position.maxScrollExtent;
     }
 
-    if (rightSideConnection.offset != 0) {
+    /*if (rightSideConnection.offset > 0.0) {
+      return value - position.pixels;
+    } else {
+      return 0.0;
+    }*/
+    if (rightSideConnection.isOverScroll) {
       return value - position.pixels;
     } else {
       return 0.0;
