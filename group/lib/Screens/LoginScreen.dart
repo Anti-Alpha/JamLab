@@ -5,6 +5,8 @@ import '../Presentation/my_flutter_app_icons.dart';
 import 'dart:async';
 import 'dart:convert' show json;
 import 'SignUpScreen.dart';
+import 'UserPage.dart';
+
 
 import "package:http/http.dart" as http;
 
@@ -31,6 +33,9 @@ import 'package:google_sign_in/google_sign_in.dart';
          setState(() {
            _isLoggedIn = true;
          });
+         Navigator.push(
+             context,
+             MaterialPageRoute(builder: (context) => UserPage('@tewiskh', 'Rostislav Pytlyar', 'hui')));
       }
       catch(err) {
         print(err);
@@ -199,7 +204,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
               child: _isLoggedIn?
                   Column(
+
                     children: <Widget>[
+
                       Image.network(
                         _googleSignIn.currentUser.photoUrl,
                         height: 50.0,
