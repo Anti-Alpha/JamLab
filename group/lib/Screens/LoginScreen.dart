@@ -33,9 +33,10 @@ import 'package:google_sign_in/google_sign_in.dart';
          setState(() {
            _isLoggedIn = true;
          });
+         //TO DO: display information in profile
          Navigator.push(
              context,
-             MaterialPageRoute(builder: (context) => UserPage('@tewiskh', 'Rostislav Pytlyar', 'hui')));
+             MaterialPageRoute(builder: (context) => UserPage(_googleSignIn.currentUser.email, _googleSignIn.currentUser.displayName, 'hui')));
       }
       catch(err) {
         print(err);
