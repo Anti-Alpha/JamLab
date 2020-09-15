@@ -23,7 +23,9 @@ dependencies:
   google_sign_in: ^4.5.1
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7
+
   auto_size_text: ^2.1.0
+  extended_nested_scroll_view: ^1.0.1
 
 
   http: ^0.12.2

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:group/Screens/SideMenu.dart';
+
+import 'SideMenu.dart';
 
 class ConnectableScrollPhysics extends ScrollPhysics {
   const ConnectableScrollPhysics(this.rightSideConnection,

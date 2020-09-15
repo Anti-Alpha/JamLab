@@ -3,35 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:group/Screens/LoginScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'Screens/UserPage.dart';
+import 'Screens/UserPage/UserPage.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: JamLab(),
     ));
 
-class JamLab extends StatelessWidget{
-
+class JamLab extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return FutureBuilder<FirebaseUser>(
         future: FirebaseAuth.instance.currentUser(),
-        builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot){
-          if (snapshot.hasData){
+        builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+          if (snapshot.hasData) {
             FirebaseUser user = snapshot.data; // this is your user instance
             /// is because there is user already logged
             return UserPage('@tewiskh', 'Rostislav Pytlyar', 'hui');
           }
+
           /// other way there is no user logged.
           return LoginPage();
-        }
-    );
+        });
   }
 }
 
-
 /*void main() {
-  debugPrintGestureArenaDiagnostics = true;
+  debugPrintGestureArenaDiagnostics = false;
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: UserPage('@tewiskh', 'Rostislav Pytlyar',

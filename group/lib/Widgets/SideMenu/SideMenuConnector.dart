@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'package:group/Screens/SideMenu.dart';
+import 'SideMenu.dart';
 
 class SimpleScrollBehavior extends ScrollBehavior {
   @override
@@ -37,7 +37,6 @@ class SideMenuConnector extends StatelessWidget {
               sideMenuState.block();
             });*/
             sideMenuState.block();
-            //print('blocking on start');
           }
         }
 
@@ -49,13 +48,8 @@ class SideMenuConnector extends StatelessWidget {
           if (notification.dragDetails.delta.dx < 0 &&
               sideMenuController.offset == 0) {
             if (drag == null) {
-              /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                sideMenuState.overscrollStart();
-              });*/
-
               sideMenuState.overscrollStart();
 
-              //print('starting overscroll');
               drag = sideMenuController.position.drag(dragStartDetails, () {});
             }
           }
@@ -71,31 +65,24 @@ class SideMenuConnector extends StatelessWidget {
           }
 
           if (sideMenuController.offset == 0) {
-            /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-              print('blocking in update');
-              sideMenuState.block();
-            });*/
             sideMenuState.block();
           }
 
           if (sideMenuController.offset > 0) {
-            //print('updating drag in update');
             drag.update(notification.dragDetails);
           }
         }
 
         if (notification is ScrollEndNotification) {
-          /*SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-            print('Scroll ended, unblocking and overscroll end');
-
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
             sideMenuState.unblock();
 
             sideMenuState.overScrollEnd();
-          });*/
+          });
 
-          sideMenuState.unblock();
+          //sideMenuState.unblock();
 
-          sideMenuState.overScrollEnd();
+          //sideMenuState.overScrollEnd();
 
           if (notification.dragDetails == null) {
             drag = null;
