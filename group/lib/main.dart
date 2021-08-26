@@ -19,7 +19,7 @@ class JamLab extends StatelessWidget {
           if (snapshot.hasData) {
             FirebaseUser user = snapshot.data; // this is your user instance
             /// is because there is user already logged
-            return UserPage('@tewiskh', 'Rostislav Pytlyar', 'hui');
+            return UserPage('@tewiskh', 'Rostislav Pytlyar', 'Guitar player');
           }
 
           /// other way there is no user logged.
